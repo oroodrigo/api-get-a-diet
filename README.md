@@ -4,9 +4,10 @@ App de acompanhamento nutricional.
 
 ## RFs (Requisitos funcionais)
 
-- [ ] Deve ser possivel criar uma contar;
+- [ ] Deve ser possivel o usuario criar uma conta;
+- [ ] Deve ser possivel o usuario se autenticar;
 - [ ] Deve ser possivel distinguir se é nutricionista ou paciente;
-- [ ] Deve ser possivel editar suas informações;
+- [ ] Deve ser possivel o usuario editar suas informações;
 - [ ] Deve ser possivel confirmar refeiçoes feitas corretamente;
 - [ ] Deve ser possivel acompanhar a quantidade de dias consecutivos em que a dieta é seguida;
 - [ ] Deve ser possivel baixar dietas;
