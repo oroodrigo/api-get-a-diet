@@ -1,6 +1,6 @@
 # App
 
-App de acompanhamento nutricional.
+Api para app de acompanhamento nutricional.
 
 ## Em desenvolvimento 
 
