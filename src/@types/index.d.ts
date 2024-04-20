@@ -11,5 +11,5 @@ export type UserCreateInput = {
   name: string
   email: string
   password_hash: string
-  crn: number | null
+  crn?: number | null
 }
