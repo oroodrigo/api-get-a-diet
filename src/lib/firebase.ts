@@ -1,10 +1,13 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
+import {
+  CollectionReference,
+  DocumentData,
+  collection,
+  getFirestore,
+} from 'firebase/firestore'
 import { env } from '../env'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { User } from '../@types'
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: env.API_KEY,
   authDomain: env.AUTH_DOMAIN,
@@ -14,5 +17,12 @@ const firebaseConfig = {
   appId: env.APP_ID,
 }
 
-// Initialize Firebase
-export const firebaseApp = initializeApp(firebaseConfig)
+const firebaseApp = initializeApp(firebaseConfig)
+
+export const firestore = getFirestore(firebaseApp)
+
+function createCollection<T = DocumentData>(collectionName: string) {
+  return collection(firestore, collectionName) as CollectionReference<T>
+}
+
+firestore.users = createCollection<User>('users')
