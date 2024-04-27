@@ -5,18 +5,17 @@ import { UsersRepository } from '../users-repository'
 import { randomUUID } from 'node:crypto'
 
 export class FirestoreUsersRepository implements UsersRepository {
-  async create(data: UserCreateInput): Promise<User> {
-    const id = randomUUID()
+  async findById(id: string): Promise<User | null> {
+    const searchQuery = query(firestore.users, where('id', '==', id))
 
-    const user: User = {
-      id,
-      name: data.name,
-      email: data.email,
-      password_hash: data.password_hash,
-      crn: data.crn ?? null,
+    const querySnapshot = await getDocs(searchQuery)
+    const userSnapshot = querySnapshot.docs
+
+    if (userSnapshot.length === 0) {
+      return null
     }
 
-    await setDoc(doc(firestore.users, id), user)
+    const user = userSnapshot[0].data()
 
     return user
   }
@@ -32,6 +31,22 @@ export class FirestoreUsersRepository implements UsersRepository {
     }
 
     const user = userSnapshot[0].data()
+
+    return user
+  }
+
+  async create(data: UserCreateInput): Promise<User> {
+    const id = randomUUID()
+
+    const user: User = {
+      id,
+      name: data.name,
+      email: data.email,
+      password_hash: data.password_hash,
+      crn: data.crn ?? null,
+    }
+
+    await setDoc(doc(firestore.users, id), user)
 
     return user
   }
