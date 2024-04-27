@@ -10,6 +10,7 @@ const envSchema = z.object({
   STORAGE_BUCKET: z.string(),
   MESSAGING_SENDER_ID: z.string(),
   APP_ID: z.string(),
+  JWT_SECRET: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
