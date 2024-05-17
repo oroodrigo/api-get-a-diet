@@ -6,7 +6,7 @@ import {
   getFirestore,
 } from 'firebase/firestore'
 import { env } from '../env'
-import { User } from '../@types'
+import { Diet, User } from '../@types'
 
 const firebaseConfig = {
   apiKey: env.API_KEY,
@@ -26,3 +26,4 @@ function createCollection<T = DocumentData>(collectionName: string) {
 }
 
 firestore.users = createCollection<User>('users')
+firestore.diets = createCollection<Diet>('diets')
