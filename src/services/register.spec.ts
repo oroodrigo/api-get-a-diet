@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { InMemoryUsersRepository } from '../repositories/in-memory/in-memory-users-repository'
+import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { RegisterService } from './register'
 import { compare } from 'bcryptjs'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
@@ -22,6 +22,16 @@ describe('Register Service', () => {
     })
 
     expect(user.id).toEqual(expect.any(String))
+    expect(user).toStrictEqual({
+      id: expect.any(String),
+      name: expect.any(String),
+      email: expect.any(String),
+      image_url: null,
+      password_hash: expect.any(String),
+      crn: null,
+      diet: null,
+      days_in_offensive: 0,
+    })
   })
 
   it('should hash user password upon registration.', async () => {
