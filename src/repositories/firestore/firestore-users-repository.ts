@@ -43,7 +43,10 @@ export class FirestoreUsersRepository implements UsersRepository {
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,
+      image_url: null,
       crn: data.crn ?? null,
+      diet: null,
+      days_in_offensive: 0,
     }
 
     await setDoc(doc(firestore.users, id), user)

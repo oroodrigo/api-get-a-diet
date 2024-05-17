@@ -7,7 +7,7 @@ interface RegisterServiceRequest {
   name: string
   email: string
   password: string
-  crn?: number | null
+  crn?: string | null
 }
 
 interface RegisterServiceResponse {
