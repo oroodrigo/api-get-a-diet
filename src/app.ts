@@ -5,8 +5,14 @@ import { env } from './env'
 import fastifyCookie from '@fastify/cookie'
 import fastifyJwt from '@fastify/jwt'
 import { dietsRoute } from './http/controllers/diets/routes'
+import fastifyCors from '@fastify/cors'
 
 export const app = fastify()
+
+app.register(fastifyCors, {
+  allowedHeaders: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+})
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
