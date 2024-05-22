@@ -11,6 +11,7 @@ As rotas protegidas usam token JWT como autorização e as requisições devem p
 ### Autenticação
 
 `POST` `/users`
+
 Rota para criação de usuários, as requisições devem conter um body com um objeto contendo informações do usuário.
 
 Por exemplo: 
@@ -24,6 +25,7 @@ Por exemplo:
 ```
 
 `POST` `/sessions`
+
 Rota para autenticar o usuário, as requisições devem conter um body com um objeto contendo informação de login do usuário.
 
 Por exemplo: 
@@ -35,16 +37,19 @@ Por exemplo:
 ```
 
 `PATCH` `/token/refresh`
+
 Rota para gerar um novo access token, as requisições não necessitam de um body.
 
 ### Informação do Usuario
 
 `GET` `/me`
+
 Rota de retorno de informações do usuário, essa rota é protegida e as requisições devem conter o cabeçalho `Authorization` com o access token.
 
-## Gerenciamento das dietas
+### Gerenciamento das dietas
 
 `POST` `/diets`
+
 Rota para criação de dietas, essa rota é protegida e as requisições devem conter o cabeçalho `Authorization` com o access token e um body com um objeto contendo informações da dieta.
 
 Por exemplo: 
