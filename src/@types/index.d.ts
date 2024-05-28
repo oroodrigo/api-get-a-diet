@@ -31,6 +31,7 @@ export type Diet = {
   meals: Meal[]
   author_id: string
   author_name: string
+  orientations: string[] | null
 }
 
 /* Types for user */
@@ -43,6 +44,17 @@ export type User = {
   image_url: string | null
   diet: Diet | null
   days_in_offensive: number
+}
+
+/* Type for CRN Scraper */
+
+export type Nutricionist = {
+  name: string | null
+  subscription: number | null
+  crn: string | null
+  situation: string | null
+  subscriptionType: string | null
+  lastUpdated: string | null
 }
 
 /* Types for create instances */
