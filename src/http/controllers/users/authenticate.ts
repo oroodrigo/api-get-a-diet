@@ -43,7 +43,7 @@ export async function authenticate(
     )
 
     return reply
-      .setCookie('refreshToken', refreshToken, {
+      .setCookie('get-a-diet.refreshToken', refreshToken, {
         path: '/',
         secure: true,
         sameSite: true,

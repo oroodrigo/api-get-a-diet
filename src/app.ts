@@ -10,14 +10,15 @@ import fastifyCors from '@fastify/cors'
 export const app = fastify()
 
 app.register(fastifyCors, {
-  allowedHeaders: '*',
+  origin: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  credentials: true,
 })
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
   cookie: {
-    cookieName: 'refreshToken',
+    cookieName: 'get-a-diet.refreshToken',
     signed: false,
   },
   sign: {
