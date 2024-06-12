@@ -7,6 +7,9 @@ import fastifyJwt from '@fastify/jwt'
 import { dietsRoute } from './http/controllers/diets/routes'
 import fastifyCors from '@fastify/cors'
 
+import nodecron from 'node-cron'
+import { makeCheckDaysInOffensiveService } from './services/factories/make-check-days-in-offensive-service'
+
 export const app = fastify()
 
 app.register(fastifyCors, {
@@ -46,4 +49,12 @@ app.setErrorHandler((error, _, reply) => {
   }
 
   return reply.status(500).send({ message: 'Internal server error.' })
+})
+
+const everyDayAtTwentyThreeAndFiftyNinePM = '59 23 * * *'
+
+nodecron.schedule(everyDayAtTwentyThreeAndFiftyNinePM, () => {
+  const checkDaysInOffensive = makeCheckDaysInOffensiveService()
+
+  checkDaysInOffensive.execute()
 })

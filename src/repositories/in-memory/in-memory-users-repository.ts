@@ -5,6 +5,22 @@ import { UsersRepository } from '../users-repository'
 export class InMemoryUsersRepository implements UsersRepository {
   private items: User[] = []
 
+  async checkDaysInOffensive(): Promise<void> {
+    this.items.forEach((user) => {
+      const isAllMealsCompleted = user.diet?.meals.every(
+        (meal) => meal.completed,
+      )
+
+      if (!isAllMealsCompleted) {
+        user.days_in_offensive = 0
+      } else {
+        user.days_in_offensive += 1
+      }
+
+      user.diet?.meals.forEach((meal) => meal.completed === null)
+    })
+  }
+
   async findById(id: string): Promise<User | null> {
     const user = this.items.find((item) => item.id === id)
 

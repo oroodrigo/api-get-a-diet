@@ -5,6 +5,33 @@ import { UsersRepository } from '../users-repository'
 import { randomUUID } from 'node:crypto'
 
 export class FirestoreUsersRepository implements UsersRepository {
+  async checkDaysInOffensive(): Promise<void> {
+    const searchQuery = query(firestore.users)
+
+    const querySnapshot = await getDocs(searchQuery)
+    const userSnapshot = querySnapshot.docs
+
+    if (userSnapshot.length > 0) {
+      userSnapshot.forEach((snapshot) => {
+        const user = snapshot.data()
+
+        if (user.diet) {
+          const isAllMealsCompleted = user.diet.meals.every(
+            (meal) => meal.completed,
+          )
+
+          if (!isAllMealsCompleted) {
+            user.days_in_offensive = 0
+          } else {
+            user.days_in_offensive += 1
+          }
+
+          user.diet.meals.forEach((meal) => meal.completed === null)
+        }
+      })
+    }
+  }
+
   async findById(id: string): Promise<User | null> {
     const searchQuery = query(firestore.users, where('id', '==', id))
 
