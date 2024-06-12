@@ -51,7 +51,8 @@ app.setErrorHandler((error, _, reply) => {
   return reply.status(500).send({ message: 'Internal server error.' })
 })
 
-const everyDayAtTwentyThreeAndFiftyNinePM = '59 23 * * *'
+/* Triggers the checking and validation function of offensive days */
+const everyDayAtTwentyThreeAndFiftyNinePM = '59 59 23 * * *'
 
 nodecron.schedule(everyDayAtTwentyThreeAndFiftyNinePM, () => {
   const checkDaysInOffensive = makeCheckDaysInOffensiveService()
