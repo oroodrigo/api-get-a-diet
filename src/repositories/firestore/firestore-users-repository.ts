@@ -9,10 +9,10 @@ export class FirestoreUsersRepository implements UsersRepository {
     const searchQuery = query(firestore.users)
 
     const querySnapshot = await getDocs(searchQuery)
-    const userSnapshot = querySnapshot.docs
+    const usersSnapshot = querySnapshot.docs
 
-    if (userSnapshot.length > 0) {
-      userSnapshot.forEach((snapshot) => {
+    if (usersSnapshot.length > 0) {
+      usersSnapshot.forEach(async (snapshot) => {
         const user = snapshot.data()
 
         if (user.diet) {
@@ -26,7 +26,9 @@ export class FirestoreUsersRepository implements UsersRepository {
             user.days_in_offensive += 1
           }
 
-          user.diet.meals.forEach((meal) => meal.completed === null)
+          user.diet.meals.forEach((meal) => (meal.completed = null))
+
+          await setDoc(doc(firestore.users, user.id), user)
         }
       })
     }

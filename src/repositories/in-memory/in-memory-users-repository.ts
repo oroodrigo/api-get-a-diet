@@ -17,7 +17,7 @@ export class InMemoryUsersRepository implements UsersRepository {
         user.days_in_offensive += 1
       }
 
-      user.diet?.meals.forEach((meal) => meal.completed === null)
+      user.diet?.meals.forEach((meal) => (meal.completed = null))
     })
   }
 
