@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { hash } from 'bcryptjs'
 import { CheckDaysInOffensiveService } from './check-days-in-offensive'
@@ -10,12 +10,6 @@ let sut: CheckDaysInOffensiveService
 beforeEach(() => {
   usersRepository = new InMemoryUsersRepository()
   sut = new CheckDaysInOffensiveService(usersRepository)
-
-  vi.useFakeTimers()
-})
-
-afterEach(() => {
-  vi.useRealTimers()
 })
 
 describe('Check Days In Offensive Service', () => {
