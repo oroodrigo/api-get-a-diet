@@ -32,6 +32,7 @@ export class InMemoryDietsRepository implements DietsRepository {
       meals: data.meals,
       author_id: data.author_id,
       author_name: data.author_name,
+      orientations: data.orientations ?? null,
     }
 
     this.items.push(diet)

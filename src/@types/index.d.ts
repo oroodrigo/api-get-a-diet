@@ -63,6 +63,7 @@ export type DietCreateInput = {
   meals: Meal[]
   author_id: string
   author_name: string
+  orientations?: string[] | null
 }
 
 export type UserCreateInput = {
