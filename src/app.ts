@@ -55,6 +55,7 @@ app.setErrorHandler((error, _, reply) => {
 const everyDayAtTwentyThreeAndFiftyNinePM = '59 59 23 * * *'
 
 nodecron.schedule(everyDayAtTwentyThreeAndFiftyNinePM, () => {
+  console.log('cron-job executed')
   const checkDaysInOffensive = makeCheckDaysInOffensiveService()
 
   checkDaysInOffensive.execute()
