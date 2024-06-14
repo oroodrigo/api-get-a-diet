@@ -54,9 +54,16 @@ app.setErrorHandler((error, _, reply) => {
 /* Triggers the checking and validation function of offensive days */
 const everyDayAtTwentyThreeAndFiftyNinePM = '59 59 23 * * *'
 
-nodecron.schedule(everyDayAtTwentyThreeAndFiftyNinePM, () => {
-  console.log('cron-job executed')
-  const checkDaysInOffensive = makeCheckDaysInOffensiveService()
+nodecron.schedule(
+  everyDayAtTwentyThreeAndFiftyNinePM,
+  () => {
+    console.log('cron-job executed')
+    const checkDaysInOffensive = makeCheckDaysInOffensiveService()
 
-  checkDaysInOffensive.execute()
-})
+    checkDaysInOffensive.execute()
+  },
+  {
+    name: 'Checking and validation function of offensive days.',
+    timezone: 'America/Sao_Paulo',
+  },
+)
