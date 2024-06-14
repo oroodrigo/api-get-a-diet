@@ -1,10 +1,42 @@
-import { doc, getDocs, query, setDoc, where } from 'firebase/firestore'
-import { UserCreateInput, User } from '../../@types'
+import {
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore'
+import {
+  UserCreateInput,
+  User,
+  MarkMealAsCompletedInput,
+  Meal,
+} from '../../@types'
 import { firestore } from '../../lib/firebase'
 import { UsersRepository } from '../users-repository'
 import { randomUUID } from 'node:crypto'
+import { ResourceNotFoundError } from '@/services/errors/resource-not-found-error'
 
 export class FirestoreUsersRepository implements UsersRepository {
+  async markMealAsCompleted(data: MarkMealAsCompletedInput): Promise<Meal> {
+    const user = await this.findById(data.userId)
+
+    if (!user || !user.diet) {
+      throw new ResourceNotFoundError()
+    }
+    const mealToMark = user.diet.meals.find((meal) => meal.title === data.title)
+
+    if (!mealToMark) {
+      throw new ResourceNotFoundError()
+    }
+
+    mealToMark.completed = new Date()
+
+    await updateDoc(doc(firestore.users, user.id), user)
+
+    return mealToMark
+  }
+
   async checkDaysInOffensive(): Promise<void> {
     const searchQuery = query(firestore.users)
 
@@ -28,7 +60,7 @@ export class FirestoreUsersRepository implements UsersRepository {
 
           user.diet.meals.forEach((meal) => (meal.completed = null))
 
-          await setDoc(doc(firestore.users, user.id), user)
+          await updateDoc(doc(firestore.users, user.id), user)
         }
       })
     }

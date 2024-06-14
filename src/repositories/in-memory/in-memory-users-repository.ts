@@ -1,9 +1,32 @@
 import { randomUUID } from 'node:crypto'
-import { User, UserCreateInput } from '../../@types'
+import {
+  MarkMealAsCompletedInput,
+  Meal,
+  User,
+  UserCreateInput,
+} from '../../@types'
 import { UsersRepository } from '../users-repository'
+import { ResourceNotFoundError } from '@/services/errors/resource-not-found-error'
 
 export class InMemoryUsersRepository implements UsersRepository {
   private items: User[] = []
+
+  async markMealAsCompleted(data: MarkMealAsCompletedInput): Promise<Meal> {
+    const user = await this.findById(data.userId)
+
+    if (!user || !user.diet) {
+      throw new ResourceNotFoundError()
+    }
+    const mealToMark = user.diet.meals.find((meal) => meal.title === data.title)
+
+    if (!mealToMark) {
+      throw new ResourceNotFoundError()
+    }
+
+    mealToMark.completed = new Date()
+
+    return mealToMark
+  }
 
   async checkDaysInOffensive(): Promise<void> {
     this.items.forEach((user) => {

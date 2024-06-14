@@ -74,3 +74,8 @@ export type UserCreateInput = {
   crn?: string | null
   image_url?: string | null
 }
+
+export type MarkMealAsCompletedInput = {
+  userId: string
+  title: string
+}
