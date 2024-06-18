@@ -46,6 +46,17 @@ Rota para gerar um novo access token, as requisições não necessitam de um bod
 
 Rota de retorno de informações do usuário, essa rota é protegida e as requisições devem conter o cabeçalho `Authorization` com o access token.
 
+`POST` `/verify/crn`
+
+Rota para verificar se um crn fornecido é valido, as requisições devem conter um body com um objeto contendo o CRN que será consultado.
+
+Por exemplo: 
+```javascript
+{
+    crn: '123456',
+}
+```
+
 ### Gerenciamento das dietas
 
 `POST` `/diets`
@@ -89,5 +100,13 @@ Por exemplo:
     }
 ```
 
+`PATCH` `/meal/markcompleted`
 
+Rota para marcar uma refeição como concluída, essa rota é protegida e as requisições devem conter o cabeçalho `Authorization` com o access token e um body com um objeto contendo o titulo da refeição que será atualizada.
 
+Por exemplo: 
+```javascript
+{
+    title: 'Almoço',
+}
+```
