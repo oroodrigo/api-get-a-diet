@@ -42,10 +42,13 @@ export async function authenticate(
       },
     )
 
+    const sevenDaysInSeconds = 60 * 24 * 7
+
     return reply
       .setCookie('get-a-diet.refreshToken', refreshToken, {
         path: '/',
         secure: true,
+        maxAge: sevenDaysInSeconds,
         sameSite: true,
         httpOnly: true,
       })
