@@ -40,12 +40,6 @@ Por exemplo:
 
 Rota para gerar um novo access token, as requisições não necessitam de um body.
 
-### Informação do Usuario
-
-`GET` `/me`
-
-Rota de retorno de informações do usuário, essa rota é protegida e as requisições devem conter o cabeçalho `Authorization` com o access token.
-
 `POST` `/verify/crn`
 
 Rota para verificar se um crn fornecido é valido, as requisições devem conter um body com um objeto contendo o CRN que será consultado.
@@ -56,6 +50,16 @@ Por exemplo:
     crn: '123456',
 }
 ```
+
+`DELETE` `/sessions`
+
+Rota de logout.
+
+### Informação do Usuario
+
+`GET` `/me`
+
+Rota de retorno de informações do usuário, essa rota é protegida e as requisições devem conter o cabeçalho `Authorization` com o access token.
 
 ### Gerenciamento das dietas
 
@@ -100,6 +104,10 @@ Por exemplo:
     }
 ```
 
+`GET` `/diets`
+
+Rota para listagem de todas as dietas.
+
 `PATCH` `/meal/markcompleted`
 
 Rota para marcar uma refeição como concluída, essa rota é protegida e as requisições devem conter o cabeçalho `Authorization` com o access token e um body com um objeto contendo o titulo da refeição que será atualizada.
@@ -108,5 +116,16 @@ Por exemplo:
 ```javascript
 {
     title: 'Almoço',
+}
+```
+
+`PUT` `/set-new-diet`
+
+Rota para atribuir dieta ao perfil do usuário, essa é uma rota protegita que deve conter o cabeçalho `Authorization` com o access token e um body com um objeto contendo o id da dieta que será atribuida ao usuário.
+
+Por exemplo: 
+```javascript
+{
+    dietId: '7b93855f-2dbe-4d31-aab5-f1eee5b5b99c',
 }
 ```
