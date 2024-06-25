@@ -4,12 +4,24 @@ import {
   Meal,
   User,
   UserCreateInput,
+  setUserDietInput,
 } from '../../@types'
 import { UsersRepository } from '../users-repository'
 import { ResourceNotFoundError } from '@/services/errors/resource-not-found-error'
 
 export class InMemoryUsersRepository implements UsersRepository {
   private items: User[] = []
+
+  async setUserDiet(data: setUserDietInput): Promise<User | null> {
+    const user = await this.findById(data.userId)
+
+    if (!user) {
+      return null
+    }
+
+    user.diet = data.diet
+    return user
+  }
 
   async markMealAsCompleted(data: MarkMealAsCompletedInput): Promise<Meal> {
     const user = await this.findById(data.userId)

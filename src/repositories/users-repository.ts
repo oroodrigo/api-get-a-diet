@@ -3,6 +3,7 @@ import {
   Meal,
   User,
   UserCreateInput,
+  setUserDietInput,
 } from '../@types'
 
 export interface UsersRepository {
@@ -10,5 +11,6 @@ export interface UsersRepository {
   findByEmail(email: string): Promise<User | null>
   checkDaysInOffensive(): Promise<void>
   markMealAsCompleted(data: MarkMealAsCompletedInput): Promise<Meal>
+  setUserDiet(data: setUserDietInput): Promise<User | null>
   create(data: UserCreateInput): Promise<User>
 }

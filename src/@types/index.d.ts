@@ -79,3 +79,8 @@ export type MarkMealAsCompletedInput = {
   userId: string
   title: string
 }
+
+export type setUserDietInput = {
+  userId: string
+  diet: Diet
+}

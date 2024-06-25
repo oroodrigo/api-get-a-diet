@@ -11,6 +11,7 @@ import {
   User,
   MarkMealAsCompletedInput,
   Meal,
+  setUserDietInput,
 } from '../../@types'
 import { firestore } from '../../lib/firebase'
 import { UsersRepository } from '../users-repository'
@@ -18,6 +19,20 @@ import { randomUUID } from 'node:crypto'
 import { ResourceNotFoundError } from '@/services/errors/resource-not-found-error'
 
 export class FirestoreUsersRepository implements UsersRepository {
+  async setUserDiet(data: setUserDietInput): Promise<User | null> {
+    const user = await this.findById(data.userId)
+
+    if (!user) {
+      return null
+    }
+
+    user.diet = data.diet
+
+    await updateDoc(doc(firestore.users, user.id), user)
+
+    return user
+  }
+
   async markMealAsCompleted(data: MarkMealAsCompletedInput): Promise<Meal> {
     const user = await this.findById(data.userId)
 

@@ -6,6 +6,7 @@ import { verifyJWT } from '@/http/middlewares/verify-jwt'
 import { refresh } from './refresh'
 import { checkCRN } from './checkCRN'
 import { signOut } from './sign-out'
+import { setNewDiet } from './setNewDiet'
 
 export async function usersRoute(app: FastifyInstance) {
   app.post('/users', register)
@@ -16,4 +17,5 @@ export async function usersRoute(app: FastifyInstance) {
   app.delete('/sessions', signOut)
   /* Authenticated */
   app.get('/me', { onRequest: [verifyJWT] }, profile)
+  app.put('/set-new-diet', { onRequest: [verifyJWT] }, setNewDiet)
 }
