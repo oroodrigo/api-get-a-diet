@@ -5,6 +5,24 @@ import { randomUUID } from 'node:crypto'
 import { DietsRepository } from '../diets-repository'
 
 export class FirestoreDietsRepository implements DietsRepository {
+  async getAll(): Promise<Diet[] | null> {
+    const searchQuery = query(firestore.diets)
+
+    const querySnapshot = await getDocs(searchQuery)
+    const dietsSnapshot = querySnapshot.docs
+
+    if (dietsSnapshot.length > 0) {
+      const dietsList: Diet[] = []
+      dietsSnapshot.forEach((diet) => {
+        dietsList.push(diet.data())
+      })
+
+      return dietsList
+    }
+
+    return null
+  }
+
   async findById(id: string): Promise<Diet | null> {
     const searchQuery = query(firestore.diets, where('id', '==', id))
 

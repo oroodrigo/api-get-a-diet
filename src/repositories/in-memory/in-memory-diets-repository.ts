@@ -5,6 +5,14 @@ import { DietsRepository } from '../diets-repository'
 export class InMemoryDietsRepository implements DietsRepository {
   private items: Diet[] = []
 
+  async getAll(): Promise<Diet[] | null> {
+    if (this.items.length > 0) {
+      return this.items
+    }
+
+    return null
+  }
+
   async findById(id: string): Promise<Diet | null> {
     const diet = this.items.find((item) => item.id === id)
 
