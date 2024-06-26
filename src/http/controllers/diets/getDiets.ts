@@ -6,5 +6,5 @@ export async function getDiets(request: FastifyRequest, reply: FastifyReply) {
 
   const diets = await getDietsService.execute()
 
-  return reply.status(200).send({ diets })
+  return reply.status(200).send(diets)
 }
