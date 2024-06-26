@@ -24,7 +24,7 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
     },
   )
 
-  const sevenDaysInSeconds = 60 * 24 * 7
+  const sevenDaysInSeconds = 60 * 60 * 24 * 7
 
   return reply
     .setCookie('get-a-diet.refreshToken', refreshToken, {
