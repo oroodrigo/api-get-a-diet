@@ -9,6 +9,6 @@ export async function dietsRoute(app: FastifyInstance) {
   app.get('/diets', getDiets)
 
   /* Authenticated */
-  app.post('/diets', { onRequest: [verifyIfUserHasCRN(), verifyJWT] }, create)
+  app.post('/diets', { onRequest: [verifyJWT, verifyIfUserHasCRN()] }, create)
   app.patch('/meal/markcompleted', { onRequest: [verifyJWT] }, markAsCompleted)
 }
